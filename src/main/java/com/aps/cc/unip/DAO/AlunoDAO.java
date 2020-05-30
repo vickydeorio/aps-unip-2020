@@ -53,7 +53,15 @@ public class AlunoDAO implements Dao<Aluno> {
 
     @Override
     public void delete(Aluno aluno) throws AlunoInvalidoException {
-        boolean isRemoved = students.remove(aluno);
+
+        boolean isRemoved = false;
+
+        for(Aluno a: students){
+            if(a.getStudentId() == aluno.getStudentId()){
+                a.setStudentName("Inscricao Cancelada");
+                isRemoved = true;
+            }
+        }
 
         if(!isRemoved){
             throw new AlunoInvalidoException();
