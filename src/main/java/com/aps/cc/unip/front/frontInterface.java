@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.com.aps.cc.unip.front;
+package com.aps.cc.unip.front;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;

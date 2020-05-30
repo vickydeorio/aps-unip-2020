@@ -1,10 +1,10 @@
-package main.java.com.aps.cc.unip.controller;
+package com.aps.cc.unip.controller;
 
 import com.aps.cc.unip.exceptions.*;
-import main.java.com.aps.cc.unip.exceptions.*;
-import main.java.com.aps.cc.unip.model.Aluno;
-import main.java.com.aps.cc.unip.model.Curso;
-import main.java.com.aps.cc.unip.model.Rendimento;
+import com.aps.cc.unip.exceptions.*;
+import com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.model.Rendimento;
 
 import java.util.List;
 

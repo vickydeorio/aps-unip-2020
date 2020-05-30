@@ -1,4 +1,4 @@
-package main.java.com.aps.cc.unip.utils;
+package com.aps.cc.unip.utils;
 
 public class CsvHeaders {
     private Header header;

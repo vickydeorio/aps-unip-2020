@@ -1,9 +1,9 @@
-package main.java.com.aps.cc.unip;
+package com.aps.cc.unip;
 
-import main.java.com.aps.cc.unip.controller.AppControllerImpl;
-import main.java.com.aps.cc.unip.model.Aluno;
-import main.java.com.aps.cc.unip.model.Curso;
-import main.java.com.aps.cc.unip.model.Rendimento;
+import com.aps.cc.unip.controller.AppControllerImpl;
+import com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.model.Rendimento;
 
 import java.time.LocalDate;
 
@@ -14,9 +14,9 @@ public class Main {
         LocalDate localDate = LocalDate.now();
 
         try {
-            app.insertStudents("src/com/aps/cc/unip/data/alunos.csv");
-            app.insertCourses("src/com/aps/cc/unip/data/Cursos.csv");
-            app.insertGrades("src/com/aps/cc/unip/data/");
+            app.insertStudents("src/main/resources/data/alunos.csv");
+            app.insertCourses("src/main/resources/data/Cursos.csv");
+            app.insertGrades("src/main/resources/data/");
 
             app.updateStudent(1, "Victoria");
 

@@ -1,4 +1,4 @@
-package main.java.com.aps.cc.unip.model;
+package com.aps.cc.unip.model;
 
 public class Aluno{
     private int studentId;

@@ -1,17 +1,17 @@
-package main.java.com.aps.cc.unip.controller;
+package com.aps.cc.unip.controller;
 
-import main.java.com.aps.cc.unip.DAO.AlunoDAO;
-import main.java.com.aps.cc.unip.DAO.CursoDAO;
-import main.java.com.aps.cc.unip.DAO.RendimentoDAO;
-import main.java.com.aps.cc.unip.enums.TipoCurso;
+import com.aps.cc.unip.DAO.AlunoDAO;
+import com.aps.cc.unip.DAO.CursoDAO;
+import com.aps.cc.unip.DAO.RendimentoDAO;
+import com.aps.cc.unip.enums.TipoCurso;
 import com.aps.cc.unip.exceptions.*;
-import main.java.com.aps.cc.unip.exceptions.*;
-import main.java.com.aps.cc.unip.model.Aluno;
-import main.java.com.aps.cc.unip.model.Curso;
-import main.java.com.aps.cc.unip.model.Rendimento;
-import main.java.com.aps.cc.unip.utils.CsvHeaders;
-import main.java.com.aps.cc.unip.utils.CsvUtils;
-import main.java.com.aps.cc.unip.utils.Header;
+import com.aps.cc.unip.exceptions.*;
+import com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.model.Rendimento;
+import com.aps.cc.unip.utils.CsvHeaders;
+import com.aps.cc.unip.utils.CsvUtils;
+import com.aps.cc.unip.utils.Header;
 
 import java.io.File;
 import java.io.IOException;

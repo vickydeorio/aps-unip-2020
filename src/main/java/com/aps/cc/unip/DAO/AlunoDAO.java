@@ -1,7 +1,7 @@
-package main.java.com.aps.cc.unip.DAO;
+package com.aps.cc.unip.DAO;
 
-import main.java.com.aps.cc.unip.exceptions.AlunoInvalidoException;
-import main.java.com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.exceptions.AlunoInvalidoException;
+import com.aps.cc.unip.model.Aluno;
 
 import java.util.ArrayList;
 import java.util.List;

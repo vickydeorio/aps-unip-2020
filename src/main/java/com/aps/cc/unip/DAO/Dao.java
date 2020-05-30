@@ -1,4 +1,4 @@
-package main.java.com.aps.cc.unip.DAO;
+package com.aps.cc.unip.DAO;
 
 import java.util.List;
 import java.util.Optional;

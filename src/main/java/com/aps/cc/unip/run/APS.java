@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.com.aps.cc.unip.run;
+package com.aps.cc.unip.run;
 
-import main.java.com.aps.cc.unip.front.frontInterface;
+import com.aps.cc.unip.front.frontInterface;
 
 /**
  *

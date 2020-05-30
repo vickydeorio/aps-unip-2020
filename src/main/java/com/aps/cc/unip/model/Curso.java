@@ -1,6 +1,6 @@
-package main.java.com.aps.cc.unip.model;
+package com.aps.cc.unip.model;
 
-import main.java.com.aps.cc.unip.enums.TipoCurso;
+import com.aps.cc.unip.enums.TipoCurso;
 
 public class Curso {
     private String courseName;

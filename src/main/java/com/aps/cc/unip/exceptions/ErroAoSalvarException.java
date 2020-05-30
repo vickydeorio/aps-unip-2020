@@ -1,4 +1,4 @@
-package main.java.com.aps.cc.unip.exceptions;
+package com.aps.cc.unip.exceptions;
 
 public class ErroAoSalvarException extends Exception{
     private String msg;
