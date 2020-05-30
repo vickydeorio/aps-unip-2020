@@ -29,7 +29,7 @@ public class Aluno{
 
     @Override
     public String toString() {
-        return "Aluno " + studentName + ", ID: " + studentId;
+        return "Nome: " + studentName + ", ID: " + studentId;
     }
 
     @Override

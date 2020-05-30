@@ -31,7 +31,6 @@ public class Main {
 
             c.setCourseYear(2022);
             app.updateCourse(c);
-            app.deleteCourse(c);
             for(Curso curso: app.getAllCourses()){
                 System.out.println(curso);
             }

@@ -49,6 +49,11 @@ public class AlunoDAO implements Dao<Aluno> {
 
     @Override
     public void delete(Aluno aluno) {
-        students.remove(aluno);
+
+        for(Aluno a: students){
+            if(a.getStudentId() == aluno.getStudentId()){
+                a.setStudentName("Inscrição Cancelada");
+            }
+        }
     }
 }

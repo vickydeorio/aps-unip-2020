@@ -43,7 +43,9 @@ public class AppControllerImpl implements AppControllerInterface {
 
     @Override
     public void deleteStudent(Aluno aluno) {
+
         alunoDAO.delete(aluno);
+
     }
 
     @Override
