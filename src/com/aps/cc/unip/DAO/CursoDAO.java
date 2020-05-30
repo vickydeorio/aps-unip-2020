@@ -1,5 +1,6 @@
 package com.aps.cc.unip.DAO;
 
+import com.aps.cc.unip.model.Aluno;
 import com.aps.cc.unip.model.Curso;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class CursoDAO implements Dao<Curso> {
     @Override
     public Curso get(long id) {
         for (Curso c: courses){
-            if (c.getStudentId() == id){
+            if (c.getId() == id){
                 return c;
             }
         }
@@ -32,6 +33,15 @@ public class CursoDAO implements Dao<Curso> {
         }
 
         return null;
+    }
+
+    public void update(Curso curso){
+        for(Curso c: courses){
+            if(c.getCourseName().equals(curso.getCourseName())){
+                c.setCourseType(curso.getCourseType());
+                c.setCourseYear(curso.getCourseYear());
+            }
+        }
     }
 
     @Override

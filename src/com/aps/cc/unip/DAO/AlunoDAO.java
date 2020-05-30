@@ -30,8 +30,20 @@ public class AlunoDAO implements Dao<Aluno> {
 
     @Override
     public void save(Aluno aluno) {
-        if (!students.contains(aluno)) {
-            students.add(aluno);
+        for(Aluno a: students){
+            if(a.equals(aluno)){
+                return;
+            }
+        }
+
+        students.add(aluno);
+    }
+
+    public void update(int studentId, String newName){
+        for(Aluno a: students){
+            if(a.getStudentId() == studentId){
+                a.setStudentName(newName);
+            }
         }
     }
 

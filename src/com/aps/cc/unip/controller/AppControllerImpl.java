@@ -5,7 +5,6 @@ import com.aps.cc.unip.DAO.CursoDAO;
 import com.aps.cc.unip.DAO.RendimentoDAO;
 import com.aps.cc.unip.model.Aluno;
 import com.aps.cc.unip.model.Curso;
-import com.aps.cc.unip.model.Historico;
 import com.aps.cc.unip.model.Rendimento;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
@@ -18,12 +17,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AppControllerImpl implements AppControllerInterface {
-    private AlunoDAO alunoDAO = new AlunoDAO();
-    private CursoDAO cursoDAO = new CursoDAO();
-    private RendimentoDAO rendimentoDAO = new RendimentoDAO();
+    private final AlunoDAO alunoDAO = new AlunoDAO();
+    private final CursoDAO cursoDAO = new CursoDAO();
+    private final RendimentoDAO rendimentoDAO = new RendimentoDAO();
 
     @Override
     public List<Curso> getAllCourses() {
@@ -36,18 +34,26 @@ public class AppControllerImpl implements AppControllerInterface {
     }
 
     @Override
-    public List<Historico> getStudentHistoryByObj(Aluno aluno) {
-        return null;
+    public void addStudent(Aluno aluno) { alunoDAO.save(aluno); }
+
+    @Override
+    public void updateStudent(int studentId, String newName) {
+        alunoDAO.update(studentId, newName);
     }
 
     @Override
-    public Map<Aluno, Rendimento> getCourseReportByObj(Curso curso) {
-        return null;
+    public void deleteStudent(Aluno aluno) {
+        alunoDAO.delete(aluno);
     }
 
     @Override
-    public void addStudent(Aluno aluno) {
-        alunoDAO.save(aluno);
+    public void updateCourse(Curso curso) {
+        cursoDAO.update(curso);
+    }
+
+    @Override
+    public void deleteCourse(Curso curso) {
+        cursoDAO.delete(curso);
     }
 
     @Override
@@ -60,9 +66,7 @@ public class AppControllerImpl implements AppControllerInterface {
         Rendimento rendimento = new Rendimento(aluno.getStudentId(), np1, np2, sub, ex);
         rendimento.setStudentName(aluno.getStudentName());
         rendimento.setStudentId(aluno.getStudentId());
-        rendimento.setCourseType(curso.getCourseType());
-        rendimento.setCourseYear(curso.getCourseYear());
-        rendimento.setCourseName(curso.getCourseName());
+        rendimento.setCurso(curso);
         rendimento.calculateAverage();
 
         rendimentoDAO.save(rendimento);

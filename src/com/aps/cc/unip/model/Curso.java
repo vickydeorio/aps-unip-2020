@@ -9,9 +9,17 @@ public class Curso {
     private TipoCurso courseType;
     private int courseYear;
 
+    public Curso(String courseName, TipoCurso courseType, int courseYear){
+        this.courseName = courseName;
+        this.courseType = courseType;
+        this.courseYear = courseYear;
+    }
+
+    public Curso(){}
+
     private int id;
 
-    public int getStudentId(){
+    public int getId(){
         return id;
     }
 

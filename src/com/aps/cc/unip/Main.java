@@ -1,6 +1,7 @@
 package com.aps.cc.unip;
 
 import com.aps.cc.unip.controller.AppControllerImpl;
+import com.aps.cc.unip.enums.TipoCurso;
 import com.aps.cc.unip.model.Aluno;
 import com.aps.cc.unip.model.Curso;
 import com.aps.cc.unip.model.Rendimento;
@@ -16,14 +17,23 @@ public class Main {
             app.insertStudents("src/com/aps/cc/unip/data/alunos.csv");
             app.insertCourses("src/com/aps/cc/unip/data/Cursos.csv");
 
+            Aluno aluno = new Aluno(1, "Victoria");
+            app.deleteStudent(aluno);
+
             for (Aluno a: app.getAllStudents()) {
                 System.out.println(a);
             }
 
             System.out.println("");
 
-            for(Curso c: app.getAllCourses()){
-                System.out.println(c);
+            Curso c = new Curso("CursoTeste", TipoCurso.pos_graduacao, 2020);
+            app.addCourse(c);
+
+            c.setCourseYear(2022);
+            app.updateCourse(c);
+            app.deleteCourse(c);
+            for(Curso curso: app.getAllCourses()){
+                System.out.println(curso);
             }
 
             System.out.println("");

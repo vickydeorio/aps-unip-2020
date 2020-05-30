@@ -14,13 +14,17 @@ public interface AppControllerInterface {
 
     List<Aluno> getAllStudents();
 
-    List<Historico> getStudentHistoryByObj(Aluno aluno);
-
-    Map<Aluno, Rendimento> getCourseReportByObj(Curso curso);
-
     void addStudent(Aluno aluno);
 
+    void updateStudent(int studentId, String newName);
+
+    void deleteStudent(Aluno aluno);
+
     void addCourse(Curso curso);
+
+    void updateCourse(Curso curso);
+
+    void deleteCourse(Curso curso);
 
     void addReport(Aluno aluno, Curso curso, Double np1, Double np2, Double sub, Double ex);
 

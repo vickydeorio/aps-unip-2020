@@ -3,9 +3,7 @@ package com.aps.cc.unip.model;
 import com.aps.cc.unip.enums.TipoCurso;
 
 public class Rendimento extends Aluno{
-    private Double[] efficiency;
-
-    private int studentId;
+    private Curso curso;
 
     private Double np1;
     private Double np2;
@@ -44,28 +42,20 @@ public class Rendimento extends Aluno{
         //Média entre as notas da np1 e np2
         double initialAverage = (np1 + np2) / 2d;
         double finalAverage;
-        double cut = getCourseType().equals(TipoCurso.graduacao) ? 7d: 5d;
+        double cut = getCurso().getCourseType().equals(TipoCurso.graduacao) ? 7d: 5d;
 
         if(initialAverage >= cut){
             finalAverage = initialAverage;
         }else{
             finalAverage = ex + initialAverage / 2d;
 
-            if(getCourseType().equals(TipoCurso.pos_graduacao)){
+            if(curso.getCourseType().equals(TipoCurso.pos_graduacao)){
                 finalAverage = Math.min(finalAverage, 5d);
             }
         }
 
         average = new Nota(finalAverage);
 
-    }
-
-    public Double[] getEfficiency() {
-        return efficiency;
-    }
-
-    public void setEfficiency(Double[] efficiency) {
-        this.efficiency = efficiency;
     }
 
     public Double getNp1() {
@@ -101,21 +91,19 @@ public class Rendimento extends Aluno{
     }
 
     @Override
-    public int getStudentId() {
-        return studentId;
-    }
-
-    @Override
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    @Override
     public String toString() {
-        return "Id Aluno: " + studentId +
+        return "Id Aluno: " + super.getStudentId() +
                 ", NP1: " + np1 +
                 ", NP2: " + np2 +
                 ", Sub: " + sub +
                 ", Ex: " + ex;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

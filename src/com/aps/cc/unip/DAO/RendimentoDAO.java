@@ -26,6 +26,21 @@ public class RendimentoDAO implements Dao<Rendimento> {
         }
     }
 
+    public void update(Rendimento rendimento){
+        for(Rendimento r: grades){
+            if(r.getStudentId() == rendimento.getStudentId() &&
+                r.getCurso().equals(rendimento.getCurso())){
+
+                r.setNp1(rendimento.getNp1());
+                r.setNp2(rendimento.getNp2());
+                r.setSub(rendimento.getSub());
+                r.setEx(rendimento.getEx());
+
+                r.calculateAverage();
+            }
+        }
+    }
+
     @Override
     public void delete(Rendimento rendimento) {
         grades.remove(rendimento);
