@@ -57,6 +57,8 @@ public class frontInterface
             this.getOptions()[0] = Integer.parseInt(JOptionPane.showInputDialog(getMenus(0)));
             if(this.getOptions()[0] == 4)
             {
+                JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
+                System.out.println("cancelled");
                 return;
             }
             this.getOptions()[1] = Integer.parseInt(JOptionPane.showInputDialog(getMenus(1)));

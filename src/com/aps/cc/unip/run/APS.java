@@ -47,61 +47,67 @@ public class APS {
             System.out.println("Id Atualizado");
 
         }catch (Exception e){
+            System.out.println("erro no carregamento inicial dos CSVs");
             System.out.println(e.fillInStackTrace());
         }
 
 
         System.out.println("iniciando Interface...");
 
-        while (front.getOptions()[0] != 4)
+        try
         {
-
-            System.out.println("Iniciando carga de dados da interface");
-
-            id.AtuId(app.getAllStudents());
-            front.setIdAluno(id.getId());
-            front.cargaAlunos(app.getAllStudents());
-            front.cargaCursos(app.getAllCourses());
-
-            System.out.println("concluido.");
-
-            System.out.println("inicializando interface gráfica.");
-            front.messageStart();
-            front.setOption();
-
-            System.out.println("Executando opção do usuário...");
-            front.runOption();
-
-            if(front.getOptions()[0] == 1)
+            while (front.getOptions()[0] != 4)
             {
-                if(front.getOptions()[1] == 1)
-                {
-                    app.addStudent(front.getAluno());
 
-                }else if(front.getOptions()[1] == 3)
+                System.out.println("Iniciando carga de dados da interface");
+
+                id.AtuId(app.getAllStudents());
+                front.setIdAluno(id.getId());
+                front.cargaAlunos(app.getAllStudents());
+                front.cargaCursos(app.getAllCourses());
+
+                System.out.println("concluido.");
+
+                System.out.println("inicializando interface gráfica.");
+                front.messageStart();
+                front.setOption();
+
+                System.out.println("Executando opção do usuário...");
+                front.runOption();
+
+                if(front.getOptions()[0] == 1)
                 {
-                    app.deleteStudent(front.getAluno());
+                    if(front.getOptions()[1] == 1)
+                    {
+                        app.addStudent(front.getAluno());
+
+                    }else if(front.getOptions()[1] == 3)
+                    {
+                        app.deleteStudent(front.getAluno());
+                    }
+
+                }else if(front.getOptions()[0] == 2)
+                {
+                    if(front.getOptions()[1] == 1)
+                    {
+                        app.addCourse(front.getCurso());
+
+                    }else if(front.getOptions()[1] == 3)
+                    {
+                        app.deleteCourse(front.getCurso());
+                    }
                 }
 
-            }else if(front.getOptions()[0] == 2)
-            {
-                if(front.getOptions()[1] == 1)
-                {
-                    app.addCourse(front.getCurso());
+                System.out.println("Saindo...");
 
-                }else if(front.getOptions()[1] == 3)
-                {
-                    app.deleteCourse(front.getCurso());
-                }
             }
 
-            System.out.println("Saindo...");
-
+        }catch (Exception e)
+        {
+            System.out.println("erro na interface do usuário");
+            System.out.println(e.fillInStackTrace());
         }
 
-
-
-        
     }
     
 }
