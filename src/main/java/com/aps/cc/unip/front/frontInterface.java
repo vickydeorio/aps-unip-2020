@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.com.aps.cc.unip.front;
+package com.aps.cc.unip.front;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.EventQueue;
-import java.awt.GridLayout;
-import javax.swing.*;
 
 /**
  *

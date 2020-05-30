@@ -1,4 +1,4 @@
-package main.java.com.aps.cc.unip.utils;
+package com.aps.cc.unip.utils;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;

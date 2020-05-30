@@ -1,8 +1,8 @@
-package main.java.com.aps.cc.unip.DAO;
+package com.aps.cc.unip.DAO;
 
-import main.java.com.aps.cc.unip.model.Aluno;
-import main.java.com.aps.cc.unip.model.Curso;
-import main.java.com.aps.cc.unip.model.Rendimento;
+import com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.model.Rendimento;
 
 import java.util.ArrayList;
 import java.util.List;

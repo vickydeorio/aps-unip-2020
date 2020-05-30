@@ -1,7 +1,7 @@
-package main.java.com.aps.cc.unip.DAO;
+package com.aps.cc.unip.DAO;
 
-import main.java.com.aps.cc.unip.exceptions.CursoInvalidoException;
-import main.java.com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.exceptions.CursoInvalidoException;
+import com.aps.cc.unip.model.Curso;
 
 import java.util.ArrayList;
 import java.util.List;
