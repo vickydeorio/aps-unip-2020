@@ -5,11 +5,15 @@
  */
 package com.aps.cc.unip.front;
 
+import com.aps.cc.unip.enums.TipoCurso;
+import com.aps.cc.unip.model.Aluno;
+import com.aps.cc.unip.model.Curso;
+import com.aps.cc.unip.model.Rendimento;
+
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.EventQueue;
-import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
@@ -17,27 +21,30 @@ import javax.swing.*;
  * @author Gabriel Da Silva
  * @apiNote Classe necessária para controlar as interações do usuário.
  */
-public class frontInterface 
+public class frontInterface
 {
-    private String[] alunoForm;
-    private String[] cursoForm;      
-    private String[] rendimentoForm;
     private String[] menus;
+    private List<Aluno> students;
+    private Aluno aluno;
+    private List<Curso> cursos;
+    private Curso curso;
+    private List<Rendimento> rendimentos;
+    private Rendimento rendimento;
     private String cTitle;
     private int[] options;
+    private int idAluno;
     private JPanel panel;
     private List<JTextField> campos = new ArrayList<>();
-        
+    private JComboBox NivelCurso;
+    private JComboBox id_do_aluno;
+
     public frontInterface()
     {
         //Confiduração inicial da interface
-        this.alunoForm      = new String[2];
-        this.cursoForm      = new String[3];
-        this.rendimentoForm = new String[5];
         this.menus          = new String[2];
         this.menus[0]       = "Digite uma opção:\n1-Alunos\n2-Cursos\n3-Rendimentos\n4-Sair ";
         this.menus[1]       = "Digite uma opção:\n1-Inserir\n2-Listar\n3-Deletar ";
-        this.options        = new int[2];
+        this.options = new int[2];
         this.panel          = new JPanel(new GridLayout(0, 1));
     }
 
@@ -46,40 +53,98 @@ public class frontInterface
     {
         JOptionPane.showMessageDialog(null,"Bem Vindo ao Sistema da Universidade Amazonas");
     }
-    
+
     //Exibe as opção do menu para o usuário
     public void setOption()
-    {    
-        this.options[0] = Integer.parseInt(JOptionPane.showInputDialog(getMenus(0)));
-        if(this.options[0] == 4)
+    {
+        try{
+
+            String opcao = JOptionPane.showInputDialog(getMenus(0));
+
+            if(opcao == null || Integer.parseInt(opcao) == 4)
+            {
+                JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
+                System.out.println("cancelled");
+                this.setOptions(0,4);
+                return;
+
+            }else if(Integer.parseInt(opcao) > 4)
+            {
+
+                JOptionPane.showMessageDialog(null,"Opção Invalida");
+                return;
+
+            }else
+            {
+                this.setOptions(0,Integer.parseInt(opcao));
+            }
+
+            opcao = JOptionPane.showInputDialog(getMenus(1));
+
+            if(opcao == null)
+            {
+                JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
+                System.out.println("cancelled");
+                return;
+
+            }else if(Integer.parseInt(opcao) > 3)
+            {
+
+                JOptionPane.showMessageDialog(null,"Opção Invalida");
+                return;
+
+            }else
+            {
+                this.setOptions(1,Integer.parseInt(opcao));
+            }
+
+        }catch (Exception e)
         {
-            return;
+            JOptionPane.showMessageDialog(null,"Escolha uma opção válida");
+            System.out.println("cancelled");
         }
-        this.options[1] = Integer.parseInt(JOptionPane.showInputDialog(getMenus(1)));
+
     }
 
     //Executa a opção que o usuário selecionou no menu
     public void runOption()
     {
 
-        if(this.options[1] == 1)
+        if(this.getOptions()[1] == 1)
         {
             this.inserirDados();
         }
-        else if(this.options[1] == 2)
+        else if(this.getOptions()[1] == 2)
         {
             this.listarDados();
         }
-        else if(this.options[1] == 3)
+        else if(this.getOptions()[1] == 3)
         {
             this.deletarDados();
         }
 
     }
 
+    public boolean validCampos()
+    {
+
+        for(JTextField J : campos )
+        {
+            if(J.getText().equals("") || J.getText().equals(null))
+            {
+                JOptionPane.showMessageDialog(null,"Campo " + J.getName() + " Não foi preenchido");
+
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
     public void inserirDados()
     {
-        this.painelRetorno(options[0]);//Constroe o painel de acordo com a seleção do usuário
+        this.painelRetorno(getOptions()[0]);//Constroe o painel de acordo com a seleção do usuário
 
         int result = JOptionPane.showConfirmDialog(null, this.panel , this.cTitle,
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -87,6 +152,30 @@ public class frontInterface
         if (result == JOptionPane.OK_OPTION)
         {
 
+            if(this.validCampos()) {
+
+                try {
+
+                    if (this.getOptions()[0] == 1) {
+
+                        this.setAluno(new Aluno(this.idAluno, getCampos().get(0).getText()));
+
+                    } else if (this.getOptions()[0] == 2) {
+                        TipoCurso tipo;
+
+                        if (this.NivelCurso.getSelectedItem() == "Graduação") {
+                            tipo = TipoCurso.graduacao;
+                        } else {
+                            tipo = TipoCurso.pos_graduacao;
+                        }
+
+                        this.setCurso(new Curso(getCampos().get(0).getText(), tipo, Integer.parseInt(getCampos().get(1).getText())));
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+
+            }
 
 
         }
@@ -96,38 +185,43 @@ public class frontInterface
         }
     }
 
+
     //Constroe o painel de acordo com a seleção do usuário
     public void painelRetorno(int N)
     {
         //limpa o menu para a geração do próximo
-        this.campos.clear();
+        this.getCampos().clear();
         this.panel = null;
         this.panel = new JPanel(new GridLayout(0, 1));
-        
+
         if(N == 1)
         {
             JTextField NomeAluno = new JTextField();
-            this.campos.add(NomeAluno);
-            
+            NomeAluno.setName("Nome Aluno");
+            this.getCampos().add(NomeAluno);
+
             this.panel.add(new JLabel("Nome do Aluno: "));
-            this.panel.add(NomeAluno);
+            this.panel.add(getCampos().get(0));
 
             this.cTitle = "Atualizar Alunos";
-            
+
         }else if(N == 2)
         {
-            
+
             JTextField NomeCurso = new JTextField();
-            this.campos.add(NomeCurso);
-            JTextField NivelCurso = new JTextField();
-            this.campos.add(NivelCurso);
+            NomeCurso.setName("Nome Curso");
+            this.getCampos().add(NomeCurso);
+
+            this.NivelCurso = new JComboBox(new String[]{"Graduação","Pos Graduação"});
+
             JTextField AnoCurso = new JTextField();
-            this.campos.add(AnoCurso);
-            
+            AnoCurso.setName("Ano Curso");
+            this.getCampos().add(AnoCurso);
+
             this.panel.add(new JLabel("Nome do Curso: "));
             this.panel.add(NomeCurso);
             this.panel.add(new JLabel("Nivel do Curso: "));
-            this.panel.add(NivelCurso);
+            this.panel.add(this.NivelCurso);
             this.panel.add(new JLabel("Ano do Curso: "));
             this.panel.add(AnoCurso);
 
@@ -136,19 +230,32 @@ public class frontInterface
         }else if(N == 3)
         {
 
-            JTextField id_do_aluno = new JTextField();
-            this.campos.add(id_do_aluno);
+            List<String> ids = new ArrayList<>();
+
+            for(Aluno a: students)
+            {
+                ids.add("" + a.getStudentId());
+            }
+
+            this.setId_do_aluno(new JComboBox(ids.toArray()));
+            getId_do_aluno().setName("Id Aluno");
+
             JTextField nota_NP1 = new JTextField();
-            this.campos.add(nota_NP1);
+            nota_NP1.setName("Nota NP1");
+            this.getCampos().add(nota_NP1);
             JTextField nota_NP2 = new JTextField();
-            this.campos.add(nota_NP2);
+            nota_NP2.setName("Nota NP2");
+            this.getCampos().add(nota_NP2);
             JTextField nota_reposicao = new JTextField();
-            this.campos.add(nota_reposicao);
+            nota_reposicao.setName("Nota Reposicão");
+            this.getCampos().add(nota_reposicao);
             JTextField nota_exame = new JTextField();
-            this.campos.add(nota_exame);
+            nota_exame.setName("Nota Exame");
+            this.getCampos().add(nota_exame);
 
             this.panel.add(new JLabel("ID Aluno: "));
-            this.panel.add(id_do_aluno);
+
+            this.panel.add(getId_do_aluno());
             this.panel.add(new JLabel("Nota NP!: "));
             this.panel.add(nota_NP1);
             this.panel.add(new JLabel("Nota NP2: "));
@@ -160,60 +267,123 @@ public class frontInterface
 
             this.cTitle = "Atualizar redimentos";
 
+            int curso;
+            int i = 0;
+            String retorno = "";
+
+
+            for(Curso c : cursos )
+            {
+                i++;
+                retorno += i + ": " + c + "\n";
+            }
+
+            curso = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o numero do Curso para Inserir um rendimento: \n" + retorno));
+
+            this.setCurso(cursos.get(curso -1));
+
         }
 
     }
 
+    public void cargaAlunos(List<Aluno> students)
+    {
+        this.setStudents(students);
+    }
+
+    public void cargaCursos(List<Curso> courses)
+    {
+        this.setCursos(courses);
+    }
+
+    public void cargaRedimentos(List<Rendimento> rendimentos)
+    {
+        this.setRendimentos(rendimentos);
+    }
+
     public void listarDados()
     {
+        String retorno = "";
+
+        if(this.getOptions()[0] == 1)
+        {
+            for(Aluno s : students)
+            {
+                if(!s.getStudentName().equals("Inscricao Cancelada"))
+                {
+                    retorno += s + "\n";
+                }
+            }
+
+            JOptionPane.showMessageDialog(null,retorno);
+
+        }else if (this.getOptions()[0] == 2)
+        {
+            int i = 0;
+            for(Curso c : cursos )
+            {
+                i++;
+                retorno += i + ": " + c + "\n";
+            }
+
+            JOptionPane.showMessageDialog(null,retorno);
+
+        }else if (this.getOptions()[0] == 3)
+        {
+            int curso;
+
+
+            int i = 0;
+            for(Curso c : cursos )
+            {
+                i++;
+                retorno += i + ": " + c + "\n";
+            }
+
+            curso = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o numero do Curso para listar seus rendimentos: \n" + retorno));
+
+            retorno = "";
+
+            for(Rendimento r : getRendimentos())
+            {
+                if(r.getCurso().equals(cursos.get(curso -1)))
+                {
+                    retorno += r;
+                    if(r.isApproved())
+                    {
+                        retorno+=" (Aprovado) \n";
+                    }
+                    else
+                    {
+                        retorno+=" (Reprovado) \n";
+                    }
+                }
+            }
+
+            JOptionPane.showMessageDialog(null,retorno);
+
+        }
+
+
 
     }
 
     public void deletarDados()
     {
+        if(this.getOptions()[0] == 1)
+        {
 
-    }
+            this.aluno = students.get(Integer.parseInt(JOptionPane.showInputDialog("Digite o Id do Aluno a ser deletado")) - 1);
 
-    /**
-     * @return the alunoForm
-     */
-    public String[] getAlunoForm() {
-        return alunoForm;
-    }
+        }
+        else if(this.getOptions()[0] == 2)
+        {
+            this.curso = cursos.get(Integer.parseInt(JOptionPane.showInputDialog("Digite o Numero do Curso a ser deletado")) - 1);
+        }
+        else if(this.getOptions()[0] == 3)
+        {
 
-    /**
-     * @param alunoForm the alunoForm to set
-     */
-    public void setAlunoForm(String[] alunoForm) {
-        this.alunoForm = alunoForm;
-    }
-
-    /**
-     * @return the cursoForm
-     */
-    public String[] getCursoForm() {
-        return cursoForm;
-    }
-
-    /**
-     * @param cursoForm the cursoForm to set
-     */
-    public void setCursoForm(String[] cursoForm) {
-        this.cursoForm = cursoForm;
-    }
-
-    /**
-     * @return the rendimentoForm
-     */
-    public String[] getRendimentoForm() {
-        return rendimentoForm;
-    }
-
-    /**
-     * @param rendimentoForm the rendimentoForm to set
-     */
-    public void setRendimentoForm(String[] rendimentoForm) {
-        this.rendimentoForm = rendimentoForm;
+        }
     }
 
     /**
@@ -229,8 +399,85 @@ public class frontInterface
     public void setMenus(String[] menus) {
         this.menus = menus;
     }
-    
-    
-    
-    
+
+
+    public int getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
+    }
+
+    public List<Aluno> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Aluno> students) {
+        this.students = students;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public int[] getOptions() {
+        return options;
+    }
+
+    public void setOptions(int pos,int options) {
+        this.options[pos] = options;
+    }
+
+    public List<Rendimento> getRendimentos() {
+        return rendimentos;
+    }
+
+    public void setRendimentos(List<Rendimento> rendimentos) {
+        this.rendimentos = rendimentos;
+    }
+
+    public Rendimento getRendimento() {
+        return rendimento;
+    }
+
+    public void setRendimento(Rendimento rendimento) {
+        this.rendimento = rendimento;
+    }
+
+    public List<JTextField> getCampos() {
+        return campos;
+    }
+
+    public void setCampos(List<JTextField> campos) {
+        this.campos = campos;
+    }
+
+    public JComboBox getId_do_aluno() {
+        return id_do_aluno;
+    }
+
+    public void setId_do_aluno(JComboBox id_do_aluno) {
+        this.id_do_aluno = id_do_aluno;
+    }
 }

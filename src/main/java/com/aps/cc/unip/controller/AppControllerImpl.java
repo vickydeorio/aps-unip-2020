@@ -13,6 +13,7 @@ import com.aps.cc.unip.utils.CsvHeaders;
 import com.aps.cc.unip.utils.CsvUtils;
 import com.aps.cc.unip.utils.Header;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,11 +99,18 @@ public class AppControllerImpl implements AppControllerInterface {
 
     @Override
     public void addReport(int idAluno, Curso curso, Double np1, Double np2, Double sub, Double ex) {
-        Rendimento rendimento = new Rendimento(idAluno, np1, np2, sub, ex);
-        rendimento.setCurso(curso);
-        rendimento.calculateAverage();
 
-        rendimentoDAO.save(rendimento);
+        if(np1 >= 0d && np2 >= 0d && sub >= 0d && ex >= 0d && np1 <= 10d && np2 <= 10d && sub <= 10d && ex <= 10d)
+        {
+            Rendimento rendimento = new Rendimento(idAluno, np1, np2, sub, ex);
+            rendimento.setCurso(curso);
+            rendimento.calculateAverage();
+
+            rendimentoDAO.save(rendimento);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Nota Invalida");
+        }
     }
 
     @Override
