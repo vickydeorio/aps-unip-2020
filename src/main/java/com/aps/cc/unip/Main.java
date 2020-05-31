@@ -24,17 +24,18 @@ public class Main {
 
             app.updateStudent(1, "Victoria");
 
+            System.out.println("Loading Students...");
             for (Aluno a: app.getAllStudents()) {
                 System.out.println(a);
             }
 
-            System.out.println("");
+            System.out.println("Loading Courses..");
 
             for(Curso curso: app.getAllCourses()){
                 System.out.println(curso);
             }
 
-            System.out.println("");
+            System.out.println("Loading Grades...");
 
             for(Rendimento r: app.getAllGrades()){
                 System.out.println(r);
@@ -108,13 +109,18 @@ public class Main {
                     }
                 }
 
-                System.out.println("Saindo...");
+
 
             }
+
+            System.out.println("Atualizando Arquivos de Dados...");
 
             app.writeStudents("src/main/resources/data", "Alunos.csv");
             app.writeCourses("src/main/resources/data", "Cursos.csv");
             app.writeGrades("src/main/resources/data");
+
+            System.out.println("Atualizado!");
+            System.out.println("Saindo...");
 
         }catch (Exception e)
         {

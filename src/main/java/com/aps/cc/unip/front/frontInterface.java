@@ -11,9 +11,9 @@ import com.aps.cc.unip.model.Curso;
 import com.aps.cc.unip.model.Rendimento;
 
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
@@ -57,18 +57,49 @@ public class frontInterface
     public void setOption()
     {
         try{
-            this.setOptions(0,Integer.parseInt(JOptionPane.showInputDialog(getMenus(0))));
-            if(this.getOptions()[0] == 4)
+
+            String opcao = JOptionPane.showInputDialog(getMenus(0));
+
+            if(opcao == null || Integer.parseInt(opcao) == 4)
+            {
+                JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
+                System.out.println("cancelled");
+                this.setOptions(0,4);
+                return;
+
+            }else if(Integer.parseInt(opcao) > 4)
+            {
+
+                JOptionPane.showMessageDialog(null,"Opção Invalida");
+                return;
+
+            }else
+            {
+                this.setOptions(0,Integer.parseInt(opcao));
+            }
+
+            opcao = JOptionPane.showInputDialog(getMenus(1));
+
+            if(opcao == null)
             {
                 JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
                 System.out.println("cancelled");
                 return;
+
+            }else if(Integer.parseInt(opcao) > 3)
+            {
+
+                JOptionPane.showMessageDialog(null,"Opção Invalida");
+                return;
+
+            }else
+            {
+                this.setOptions(1,Integer.parseInt(opcao));
             }
-            this.setOptions(1,Integer.parseInt(JOptionPane.showInputDialog(getMenus(1))));
+
         }catch (Exception e)
         {
-            this.getOptions()[0] = 4;
-            JOptionPane.showMessageDialog(null,"Obrigado por usar o nosso sistema. \nDynamics System.");
+            JOptionPane.showMessageDialog(null,"Escolha uma opção válida");
             System.out.println("cancelled");
         }
 
@@ -93,6 +124,23 @@ public class frontInterface
 
     }
 
+    public boolean validCampos()
+    {
+
+        for(JTextField J : campos )
+        {
+            if(J.getText().equals("") || J.getText().equals(null))
+            {
+                JOptionPane.showMessageDialog(null,"Campo " + J.getName() + " Não foi preenchido");
+
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
     public void inserirDados()
     {
         this.painelRetorno(getOptions()[0]);//Constroe o painel de acordo com a seleção do usuário
@@ -103,26 +151,31 @@ public class frontInterface
         if (result == JOptionPane.OK_OPTION)
         {
 
-            if(this.getOptions()[0] == 1)
-            {
+            if(this.validCampos()) {
 
-                this.setAluno(new Aluno(this.idAluno, getCampos().get(0).getText()));
+                try {
 
-            }
-            else if(this.getOptions()[0] == 2)
-            {
-                TipoCurso tipo;
+                    if (this.getOptions()[0] == 1) {
 
-                if(this.NivelCurso.getSelectedItem() == "Graduação")
-                {
-                    tipo = TipoCurso.graduacao;
-                }else
-                {
-                    tipo = TipoCurso.pos_graduacao;
+                        this.setAluno(new Aluno(this.idAluno, getCampos().get(0).getText()));
+
+                    } else if (this.getOptions()[0] == 2) {
+                        TipoCurso tipo;
+
+                        if (this.NivelCurso.getSelectedItem() == "Graduação") {
+                            tipo = TipoCurso.graduacao;
+                        } else {
+                            tipo = TipoCurso.pos_graduacao;
+                        }
+
+                        this.setCurso(new Curso(getCampos().get(0).getText(), tipo, Integer.parseInt(getCampos().get(1).getText())));
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
 
-                this.setCurso(new Curso(getCampos().get(0).getText(), tipo,Integer.parseInt(getCampos().get(1).getText())));
             }
+
 
         }
         else
@@ -143,6 +196,7 @@ public class frontInterface
         if(N == 1)
         {
             JTextField NomeAluno = new JTextField();
+            NomeAluno.setName("Nome Aluno");
             this.getCampos().add(NomeAluno);
 
             this.panel.add(new JLabel("Nome do Aluno: "));
@@ -154,11 +208,13 @@ public class frontInterface
         {
 
             JTextField NomeCurso = new JTextField();
+            NomeCurso.setName("Nome Curso");
             this.getCampos().add(NomeCurso);
 
             this.NivelCurso = new JComboBox(new String[]{"Graduação","Pos Graduação"});
 
             JTextField AnoCurso = new JTextField();
+            AnoCurso.setName("Ano Curso");
             this.getCampos().add(AnoCurso);
 
             this.panel.add(new JLabel("Nome do Curso: "));
@@ -174,14 +230,19 @@ public class frontInterface
         {
 
             JTextField id_do_aluno = new JTextField();
+            id_do_aluno.setName("Id Aluno");
             this.getCampos().add(id_do_aluno);
             JTextField nota_NP1 = new JTextField();
+            nota_NP1.setName("Nota NP1");
             this.getCampos().add(nota_NP1);
             JTextField nota_NP2 = new JTextField();
+            nota_NP2.setName("Nota NP2");
             this.getCampos().add(nota_NP2);
             JTextField nota_reposicao = new JTextField();
+            nota_reposicao.setName("Nota Reposicão");
             this.getCampos().add(nota_reposicao);
             JTextField nota_exame = new JTextField();
+            nota_exame.setName("Nota Exame");
             this.getCampos().add(nota_exame);
 
             this.panel.add(new JLabel("ID Aluno: "));
