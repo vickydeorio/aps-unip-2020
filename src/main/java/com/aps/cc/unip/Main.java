@@ -18,12 +18,13 @@ public class Main {
         LocalDate localDate = LocalDate.now();
 
         try {
-            app.insertStudents("src/main/resources/data/alunos.csv");
-            app.insertCourses("src/main/resources/data/Cursos.csv");
-            app.insertGrades("src/main/resources/data/");
-
+            System.out.println("aaa");
+            app.insertStudents(args[0]);
+            app.insertCourses(args[1]);
+            app.insertGrades(args[2]);
+            System.out.println("bbb");
             app.updateStudent(1, "Victoria");
-
+            System.out.println("ccc");
             System.out.println("Loading Students...");
             for (Aluno a: app.getAllStudents()) {
                 System.out.println(a);
