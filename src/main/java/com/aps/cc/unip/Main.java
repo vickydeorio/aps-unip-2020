@@ -96,12 +96,12 @@ public class Main {
                 {
                     if(front.getOptions()[1] == 1)
                     {
-                        app.addReport(Integer.parseInt(front.getCampos().get(0).getText()),
+                        app.addReport(Integer.parseInt(front.getId_do_aluno().getSelectedItem().toString()),
                                 front.getCurso(),
+                                Double.parseDouble(front.getCampos().get(0).getText()),
                                 Double.parseDouble(front.getCampos().get(1).getText()),
                                 Double.parseDouble(front.getCampos().get(2).getText()),
-                                Double.parseDouble(front.getCampos().get(3).getText()),
-                                Double.parseDouble(front.getCampos().get(4).getText()));
+                                Double.parseDouble(front.getCampos().get(3).getText()));
 
                     }else if(front.getOptions()[1] == 3)
                     {

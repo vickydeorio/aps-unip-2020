@@ -36,6 +36,7 @@ public class frontInterface
     private JPanel panel;
     private List<JTextField> campos = new ArrayList<>();
     private JComboBox NivelCurso;
+    private JComboBox id_do_aluno;
 
     public frontInterface()
     {
@@ -229,9 +230,16 @@ public class frontInterface
         }else if(N == 3)
         {
 
-            JTextField id_do_aluno = new JTextField();
-            id_do_aluno.setName("Id Aluno");
-            this.getCampos().add(id_do_aluno);
+            List<String> ids = new ArrayList<>();
+
+            for(Aluno a: students)
+            {
+                ids.add("" + a.getStudentId());
+            }
+
+            this.setId_do_aluno(new JComboBox(ids.toArray()));
+            getId_do_aluno().setName("Id Aluno");
+
             JTextField nota_NP1 = new JTextField();
             nota_NP1.setName("Nota NP1");
             this.getCampos().add(nota_NP1);
@@ -246,7 +254,8 @@ public class frontInterface
             this.getCampos().add(nota_exame);
 
             this.panel.add(new JLabel("ID Aluno: "));
-            this.panel.add(id_do_aluno);
+
+            this.panel.add(getId_do_aluno());
             this.panel.add(new JLabel("Nota NP!: "));
             this.panel.add(nota_NP1);
             this.panel.add(new JLabel("Nota NP2: "));
@@ -462,5 +471,13 @@ public class frontInterface
 
     public void setCampos(List<JTextField> campos) {
         this.campos = campos;
+    }
+
+    public JComboBox getId_do_aluno() {
+        return id_do_aluno;
+    }
+
+    public void setId_do_aluno(JComboBox id_do_aluno) {
+        this.id_do_aluno = id_do_aluno;
     }
 }

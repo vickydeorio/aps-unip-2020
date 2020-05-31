@@ -67,7 +67,11 @@ public class Rendimento extends Aluno{
     }
 
     public void setNp1(Double np1) {
-        this.np1 = np1;
+
+        if (np1 >= 0d && np1 <= 10d){
+            this.np1 = np1;
+        }
+
     }
 
     public Double getNp2() {
@@ -75,7 +79,10 @@ public class Rendimento extends Aluno{
     }
 
     public void setNp2(Double np2) {
-        this.np2 = np2;
+
+        if (np2 >= 0d && np2 <= 10d){
+            this.np2 = np2;
+        }
     }
 
     public Double getSub() {
@@ -83,7 +90,10 @@ public class Rendimento extends Aluno{
     }
 
     public void setSub(Double sub) {
-        this.sub = sub;
+        if(sub >= 0d && sub <= 10d)
+        {
+            this.sub = sub;
+        }
     }
 
     public Double getEx() {
@@ -91,7 +101,12 @@ public class Rendimento extends Aluno{
     }
 
     public void setEx(Double ex) {
-        this.ex = ex;
+
+        if(ex >= 0d && ex <= 10d)
+        {
+            this.ex = ex;
+        }
+
     }
 
     @Override
